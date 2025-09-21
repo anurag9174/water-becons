@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Water's Beacon</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(180deg, #f4f9ff 0%, #eef6ff 100%);
+        color: #112;
+        line-height: 1.6;
+        font-size: 18px;
+      }
+      .header {
+        text-align: center;
+        padding: 2rem 1rem 1rem;
+        background: linear-gradient(90deg, #0077d9, #00b0ff);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(2, 60, 120, 0.12);
+        position: relative;
+      }
+      .logo-large {
+        font-size: 2.6rem;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        background: linear-gradient(90deg, #fff, #d6f0ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+      .tag {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-top: 0.3rem;
+      }
+      .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+        position: relative;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+      }
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: #fff;
+        position: absolute;
+        right: 1rem;
+        top: 0.5rem;
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background: #0077d9;
+          position: absolute;
+          top: 60px;
+          right: 0;
+          padding: 1rem;
+          border-radius: 0 0 0 8px;
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .hamburger {
+          display: block;
+        }
+      }
+      #profileBtn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.8rem;
+        cursor: pointer;
+      }
+      #profilePanel {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 320px;
+        height: 100%;
+        background: #fff;
+        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        transition: 0.3s;
+        z-index: 999;
+        overflow-y: auto;
+      }
+      #profilePanel img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto 1rem auto;
+        border: 3px solid #0077d9;
+        object-fit: cover;
+      }
+      #profilePanel h2 {
+        text-align: center;
+        color: #0077d9;
+        margin-bottom: 0.5rem;
+      }
+      #profilePanel p {
+        text-align: center;
+        color: #444;
+        margin-bottom: 1rem;
+      }
+      .profile-btn {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        margin: 0.5rem 0;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        color: #fff;
+      }
+      .btn-rewards {
+        background: #00b0ff;
+      }
+      .btn-refer {
+        background: #0077d9;
+      }
+      .btn-payments {
+        background: #00a86b;
+      }
+      .btn-profile {
+        background: #ff6b35;
+      }
+      .btn-close {
+        background: #e74c3c;
+      }
+      .search-wrap {
+        margin: 1.5rem auto 0;
+        display: flex;
+        max-width: 800px;
+        width: 95%;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0.6rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      }
+      #searchInput {
+        flex: 1;
+        border: 0;
+        padding: 0.9rem 1.2rem;
+        font-size: 1.1rem;
+        outline: none;
+        background: transparent;
+      }
+      .btn {
+        padding: 0.9rem 1.4rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.05rem;
+        background: #0077d9;
+        color: #fff;
+        transition: background 0.3s;
+      }
+      .btn:hover {
+        background: #005fa8;
+      }
+      .container {
+        max-width: 95%;
+        margin: 2rem auto;
+        padding: 0 1rem 3rem;
+      }
+      .cards-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 1.2rem;
+      }
+      @media (max-width: 900px) {
+        .cards-section {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .cards-section {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        background: linear-gradient(180deg, #fff, #f7fbff);
+        border-radius: 18px;
+        padding: 2rem;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 10px 28px rgba(9, 54, 110, 0.08);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        position: relative;
+        border: 2px solid rgba(0, 119, 217, 0.25);
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 44px rgba(9, 54, 110, 0.12);
+      }
+      .card .heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #034a8c;
+        margin-bottom: 0.8rem;
+      }
+      .card .summary {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+      }
+      .card .details {
+        display: none;
+        font-size: 1rem;
+        opacity: 0.85;
+        margin-top: 0.5rem;
+      }
+      .card .more {
+        align-self: flex-start;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        background: #0077d9;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1.05rem;
+        border: none;
+      }
+      .card .badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: linear-gradient(90deg, #00b0ff, #0066cc);
+        color: white;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+      .location-section {
+        margin-top: 2.5rem;
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(3, 60, 110, 0.05);
+        text-align: center;
+        border: 2px solid rgba(0, 119, 217, 0.25);
+      }
+      #locationBtn {
+        background: linear-gradient(90deg, #0077d9, #00b0ff);
+        color: #fff;
+        border-radius: 10px;
+        padding: 0.9rem 1.4rem;
+        border: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+      .location-small {
+        margin-top: 1rem;
+        color: #085;
+        font-size: 1.05rem;
+      }
+      .written-news {
+        margin-top: 2.5rem;
+        padding: 2rem;
+        background: linear-gradient(180deg, #f9fbff, #fff);
+        border-radius: 16px;
+        box-shadow: 0 10px 24px rgba(9, 46, 90, 0.05);
+        border: 2px solid rgba(0, 119, 217, 0.25);
+      }
+      .written-news h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        color: #034a8c;
+      }
+      .written-news li {
+        margin: 0.8rem 0;
+        padding: 1rem;
+        border-radius: 10px;
+        background: rgba(2, 70, 140, 0.04);
+        list-style: disc;
+        font-size: 1.1rem;
+        border: 1px solid rgba(0, 119, 217, 0.2);
+      }
+      footer {
+        margin-top: 2.5rem;
+        text-align: center;
+        color: #234;
+        opacity: 0.75;
+        font-size: 1rem;
+      }
+      #map {
+        width: 100%;
+        height: 300px;
+        margin-top: 1.5rem;
+        border-radius: 12px;
+      }
+      .Getoffical {
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        background: #0077d9;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1.05rem;
+        border: none;
+        margin-left: auto; /* Ye button ko right side push karega */
+        display: block; /* flex parent ke andar properly kaam karega */
+      }
+      
+      /* New styles for location-based content */
+      .location-results {
+        margin: 2rem 0;
+        display: none;
+      }
+      .location-results h2 {
+        font-size: 1.8rem;
+        color: #034a8c;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .location-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      .location-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #0077d9;
+      }
+      .location-card h3 {
+        color: #0077d9;
+        margin-bottom: 0.5rem;
+  }
+      .location-card p {
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+      .distance {
+        font-weight: bold;
+        color: #00a86b;
+      }
+      
+      /* Profile panel enhancements */
+      .profile-info {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .profile-actions {
+        margin-top: 1.5rem;
+      }
+      .profile-actions button {
+        margin-bottom: 0.8rem;
+      }
+      .go-to-profile {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: #0077d9;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .go-to-profile:hover {
+        text-decoration: underline;
+      }
+
+      /* Horizontal Reels / Top Feed */
+.top-feed-wrapper {
+  display: flex;
+  align-items: flex-start;
+  overflow-x: auto; /* horizontal scroll */
+  gap: 1rem;
+  padding: rem 0;
+  scroll-behavior: smooth;
+}
+
+.reels-section {
+  display: flex;
+  gap: 1rem;
+}
+
+.reel-card {
+  min-width: 200px; /* reel size */
+  flex: 0 0 auto;
+  background: #f7fbff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.reel-card:hover {
+  transform: scale(1.05);
+}
+
+.reel-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.reel-info h4 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #034a8c;
+}
+
+.reel-info p {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Optional "More" button at the end */
+.more-button {
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  background: #0077d9;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  flex: 0 0 auto;
+  height: fit-content;
+}
+
+</style><style>
+  /* Google Translate widget styling */
+  #google_translate_element {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  /* Optional: Adjust dropdown inside widget */
+  .goog-te-combo {
+    border-radius: 6px;
+    border: 1px solid #0077d9;
+    padding: 2px 6px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* Responsive for small screens */
+  @media (max-width: 600px) {
+    #google_translate_element {
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  }
+  * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+.top-feed-wrapper {
+  overflow-x: auto;           /* horizontal scroll */
+  overflow-y: hidden;
+  padding: 10px;
+}
+
+.reels-section {
+  display: flex;              /* sab items side-by-side */
+  gap: 16px;                  /* space between reels & button */
+  align-items: center;        /* vertical center for button */
+}
+
+.reel-card {
+  flex: 0 0 200px;        /* reel ki fixed width */
+  height: 340px;          /* reel ki fixed height */
+  border-radius: 12px;
+  overflow: hidden;       /* video bahar na nikle */
+  position: relative;
+  background: #000;
+}
+
+.reel-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* frame ke hisab se crop/cover */
+  object-position: center;/* center se crop kare */
+  display: block;
+}
+
+.reel-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  text-align: center;
+}
+
+.more {
+  flex: 0 0 auto;             /* button ka apna size */
+  height: 50px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;        /* text wrap na ho */
+}
+
+    .reel-info h4 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .reel-info p {
+      font-size: 13px;
+      line-height: 1.2;
+    }
+    .video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.video-modal video {
+  max-width: 90%;
+  max-height: 90%;
+}
+/* Hover effect for text links in the footer */
+    .footer-link:hover {
+      color: #3498db !important; /* !important is used to override inline styles */
+      text-decoration: underline !important;
+    }
+
+    /* Hover effect for social media icons */
+    .social-link:hover {
+      background-color: #3498db !important;
+    }
+
+    /* Media query to make the footer responsive on screens smaller than 768px */
+    @media (max-width: 768px) {
+      .footer-columns-container {
+        flex-direction: column !important;
+        text-align: center !important;
+      }
+      .footer-columns-container > div {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+
+</style>
+
+
+  </head>
+  <body>
+    <header class="header">
+      <!-- Google Translate Widget -->
+<div id="google_translate_element" style="position: fixed; top: 20px; right: 80px; z-index: 999;"></div>
+
+  <div class="logo-large">Water's Beacon</div>
+  <div class="tag">The Ocean's Watch Tower </div>
+  <div class="search-wrap">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search news or places..."
+    />
+    <button class="btn" id="searchBtn">Search</button>
+  </div>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="socialmedia.html">Social Media</a></li>
+      <li><a href="uploadnews.html">Upload News </a></li>
+      <li><a href="contactUs.html">Contact us</a></li>
+      <li><a href="officialhandle.html">Official Handle</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+  </nav>
+  <div id="profileBtn">👤</div>
+</header>
+<div id="profilePanel"></div>
+
+<div class="container">
+  <section class="cards-section">
+    <article class="card">
+      <div class="badge">Top</div>
+      <div>
+        <div class="heading">
+          <a href="#" style="text-decoration: none; color: #034a8c"
+            >🦈 Multiple Shark Sightings Reported Near Bluewater Beach</a
+          >
+        </div>
+
+        <div class="summary">Lifeguards have raised red flags across Bluewater Beach after multiple shark sightings were reported by local surfers early this morning. The beach has been evacuated as a precautionary measure.</div>
+        <div class="details"> 
+          Experts believe the sharks were drawn closer to shore by unusually high concentrations of baitfish in the area. Recent tidal changes and strong currents may also have contributed to the sudden increase in shark activity.....
+
+
+          
+          <button class="Getoffical" onclick="window.location.href='news1.html'">Get official Detail</button>
+        </div>
+      </div>
+      <button class="more" onclick="toggleCard(this)">Read more</button>
+    </article>
+
+    <article class="card">
+      <div class="badge">Top</div>
+      <div>
+        <div class="heading">
+          <a href="#" style="text-decoration: none; color: #034a8c"
+            >Unprecedented 'Crimson Glow' Algal Bloom Poses Health Risk Along Mumbai Coast</a
+          >
+        </div>
+        <div class="summary">
+         Authorities Issue Urgent Warning for Residents and Fishermen; Beach Access Restricted from Colaba to Juhu....
+        </div>
+        <div class="details">
+          The bloom, identified by scientists at the Maharashtra Institute of Oceanography (MIO) as a species of dinoflagellate known as Pyrodinium bahamense, was first spotted as small patches near the shores of Versova three days ago...
+          <button class="Getoffical" onclick="window.location.href='news2.html'">Get official Detail</button>
+        </div>
+      </div>
+      <button class="more" onclick="toggleCard(this)">Read more</button>
+    </article>
+
+    <article class="card">
+      <div class="badge">Top</div>
+      <div>
+        <div class="heading">
+          <a href="#" style="text-decoration: none; color: #034a8c"
+            >Massive 'Ghost Net' Super-Cluster Drifts Towards Odisha Coast</a
+          >
+        </div>
+        <div class="summary">
+          Shipping and Wildlife on High Alert as Colossal Floating Mass Threatens Paradip Port and Gahirmatha Turtle Sanctuary...
+        </div>
+        <div class="details">
+           A state of high alert has been declared along the Odisha coast as a colossal super-cluster of abandoned fishing nets, lines, and buoys—collectively known as "ghost gear"—drifts menacingly through the Bay of Bengal...
+          <button class="Getoffical" onclick="window.location.href='news3.html'">Get official Detail</button>
+        </div>
+      </div>
+      <button class="more" onclick="toggleCard(this)">Read more</button>
+    </article>
+  </section>
+
+  <section class="location-section">
+    <p>Give your location to know hazards or news in your area</p>
+    <button id="locationBtn">Give Access to Your Location</button>
+    <div id="locResult" class="location-small"></div>
+    <div id="map"></div>
+  </section>
+
+  <section id="locationResults" class="location-results">
+    <h2>Nearest To You</h2>
+    <div id="locationCards" class="location-cards">
+    
+    </div>
+  </section>
+
+  <section class="written-news">
+    <h2>Top Feed</h2>
+
+    <!-- Horizontally scrollable Reels / Top Feed section -->
+    <div class="top-feed-wrapper">
+  <div class="reels-section">
+    
+    <div class="reel-card">
+      <video src="/waters /media/VIDEO-2025-09-20-23-06-01.mp4" muted playsinline loop poster="thumb1.jpg"></video>
+      <div class="reel-info">
+        <h4>Reel Title 1</h4>
+        <p>Short description for Reel 1</p>
+      </div>
+    </div>
+
+    <div class="reel-card">
+      <video src="https://www.shutterstock.com/shutterstock/videos/3521210625/preview/stock-footage-polluted-sea-coast-dark-water-pollution-ecology-concept-concept-of-ecology-disaster-and.webm" muted  playsinlineloopposter="thumb1.jpg"></video>
+      <div class="reel-info">
+        <h4>Pollution</h4>
+        <p>Polluted sea coast. Dark water pollution. Ecology concept. </p>
+      </div>
+    </div>
+
+    <div class="reel-card">
+      <video src="/waters /media/VIDEO-2025-09-20-12-44-06.mp4" muted  playsinlineloopposter="thumb1.jpg"></video>
+      <div class="reel-info">
+        <h4>Reel Title 2</h4>
+        <p>Short description for Reel 2</p>
+      </div>
+    </div>
+
+    <div class="reel-card">
+      <video src="/waters /media/VIDEO-2025-09-20-12-26-55.mp4" muted  playsinlineloopposter="thumb1.jpg"></video>
+      <div class="reel-info">
+        <h4>Reel Title 2</h4>
+        <p>Short description for Reel 2</p>
+      </div>
+    </div>
+
+   <div class="reel-card">
+      <video src="/waters /media/VIDEO-2025-09-20-12-24-17.mp4" muted  playsinlineloopposter="thumb1.jpg"></video>
+      <div class="reel-info">
+        <h4>Reel Title 2</h4>
+        <p>Short description for Reel 2</p>
+      </div>
+    </div>
+
+    <div><button class="more" >more</button></div>
+
+  </div>
+</div>
+
+
+</div>
+<footer style="background-color: #2c3e50; color: #bdc3c7; padding: 45px 0 20px; font-size: 15px; line-height: 24px; font-family: sans-serif;">
+  <div style="max-width: 1170px; margin: 0 auto; padding: 0 15px;">
+    
+    <div class="footer-columns-container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+      
+      <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+        <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #3498db; padding-bottom: 5px; width: 150px;">Water's Beacon</h3>
+        <p>Guiding you to clarity and sustainability. Your trusted source for water resource information and advocacy.</p>
+      </div>
+
+      <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+        <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #3498db; padding-bottom: 5px; width: 110px;">Quick Links</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/about" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">About Us</a></li>
+          <li><a href="/projects" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Our Projects</a></li>
+          <li><a href="/blog" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Blog</a></li>
+          <li><a href="/contact" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Contact Us</a></li>
+          <li><a href="/faq" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+        <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #3498db; padding-bottom: 5px; width: 110px;">Information</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/privacy-policy" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Privacy Policy</a></li>
+          <li><a href="/terms-of-service" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Terms of Service</a></li>
+          <li><a href="/cookie-policy" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Cookie Policy</a></li>
+          <li><a href="/sitemap" class="footer-link" style="color: #bdc3c7; text-decoration: none; display: block; margin-bottom: 10px;">Sitemap</a></li>
+        </ul>
+      </div>
+
+      <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+        <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #3498db; padding-bottom: 5px; width: 160px;">Connect With Us</h3>
+        <div>
+          <a href="#" title="Twitter" class="social-link" style="display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; color: #ffffff; margin-right: 10px; font-size: 18px; text-decoration: none;"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Facebook" class="social-link" style="display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; color: #ffffff; margin-right: 10px; font-size: 18px; text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="Instagram" class="social-link" style="display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; color: #ffffff; margin-right: 10px; font-size: 18px; text-decoration: none;"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="LinkedIn" class="social-link" style="display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; color: #ffffff; margin-right: 10px; font-size: 18px; text-decoration: none;"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding-top: 20px; border-top: 1px solid #3d4a5c; margin-top: 20px;">
+      <p>&copy; <span id="copyright-year">2025</span> Water's Beacon. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+<script>
+  function openReel(videoSrc) {
+    const videoWindow = window.open("", "_blank", "width=600,height=400");
+    videoWindow.document.write(`
+      <video src="${videoSrc}" controls autoplay style="width:100%;height:100%;"></video>
+    `);
+  }
+
+  function scrollTopFeed() {
+    const wrapper = document.querySelector('.top-feed-wrapper');
+    wrapper.scrollBy({ left: 300, behavior: 'smooth' });
+  }
+</script>
+
+    <script>
+      // Read More / Read Less toggle
+      function toggleCard(btn) {
+        const card = btn.closest(".card");
+        const details = card.querySelector(".details");
+        if (details.style.display === "none" || details.style.display === "") {
+          details.style.display = "block";
+          btn.textContent = "Read less";
+        } else {
+          details.style.display = "none";
+          btn.textContent = "Read more";
+        }
+      }
+
+      // Profile panel
+      const profileBtn = document.getElementById("profileBtn");
+      const profilePanel = document.getElementById("profilePanel");
+      profileBtn.addEventListener("click", () => {
+        const user = JSON.parse(localStorage.getItem("userInfo")) || {
+          name: "Rajesh Kumar",
+          email: "rajesh.kumar@example.com",
+          phone: "+91 9876543210",
+          pic: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aW5kaWFuJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+          rewards: 350,
+        };
+        profilePanel.innerHTML = `
+          <div class="profile-info">
+            <img src="${user.pic}" alt="Profile Pic">
+            <h2>${user.name}</h2>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+            <a href="profile.html" class="go-to-profile">Go to Profile →</a>
+          </div>
+          <div class="profile-actions">
+            <button class="profile-btn btn-rewards" onclick="alert('Rewards: ${user.rewards} points')">Rewards</button>
+            <button class="profile-btn btn-refer" onclick="alert('Refer & Earn link copied!')">Refer & Earn</button>
+            <button class="profile-btn btn-payments" onclick="alert('Payments section coming soon')">Payments</button>
+            <button class="profile-btn btn-profile" onclick="alert('Profile page coming soon')">Edit Profile</button>
+            <button class="profile-btn btn-close" onclick="closeProfile()">Close</button>
+          </div>
+        `;
+        profilePanel.style.right = "0";
+      });
+      function closeProfile() {
+        profilePanel.style.right = "-320px";
+      }
+
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Navbar toggle
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      hamburger.addEventListener("click", () =>
+        navLinks.classList.toggle("open")
+      );
+
+      // Search
+      document.getElementById("searchBtn").addEventListener("click", () => {
+        const q = document.getElementById("searchInput").value.trim();
+        if (!q) {
+          alert("Please type something to search.");
+          return;
+        }
+        alert("Search feature coming soon. You searched: " + q);
+      });
+
+      // Load hazards from backend
+      async function loadHazardsOnMain() {
+        const container = document.getElementById("hazardPosts");
+        try {
+          const res = await fetch("http://localhost:5000/hazards");
+          const hazards = await res.json();
+          if (!hazards.length)
+            container.innerHTML = "<p>No hazards reported yet.</p>";
+          else {
+            container.innerHTML = hazards
+              .map(
+                (h) => `
+              <div style="border:1px solid #0077d9; padding:1rem; margin-bottom:1rem; border-radius:12px; display:flex; gap:1rem; background:#f7fbff;">
+                <img src="${h.image}" style="width:120px; height:80px; object-fit:cover; border-radius:8px;">
+                <div>
+                  <strong style="font-size:1.2rem; color:#034a8c;">${h.title}</strong>
+                  <p style="opacity:0.9;">${h.description}</p>
+                </div>
+              </div>`
+              )
+              .join("");
+          }
+        } catch (err) {
+          console.error(err);
+          container.innerHTML = "<p>Error loading hazards.</p>";
+        }
+      }
+      loadHazardsOnMain();
+    </script>
+    
+    <script>
+      // **Map और Location का संशोधित कोड यहाँ है**
+      let map, marker;
+      window.initMap = function(lat = 20.5937, lon = 78.9629) {
+          console.log("initMap function called.");
+          map = new google.maps.Map(document.getElementById("map"), {
+              center: { lat, lng: lon },
+              zoom: 6,
+          });
+      }
+
+      function calculateDistance(lat1, lon1, lat2, lon2) {
+          const R = 6371;
+          const dLat = (lat2 - lat1) * Math.PI / 180;
+          const dLon = (lon2 - lon1) * Math.PI / 180;
+          const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          const distance = R * c;
+          return distance.toFixed(1);
+      }
+
+      function showLocationContent(lat, lon) {
+          document.getElementById('locationResults').style.display = 'block';
+          const nearbyAlerts = [
+              { title: "Flood Warning", description: "River levels rising in your area. Evacuation centers set up at local schools.", distance: calculateDistance(lat, lon, lat + 0.01, lon + 0.01), type: "High Priority" },
+              { title: "Water Quality Alert", description: "Boil water notice issued for neighborhoods within 2km radius.", distance: calculateDistance(lat, lon, lat + 0.02, lon - 0.01), type: "Medium Priority" },
+              { title: "Road Closure", description: "Main street closed due to flooding. Use alternate routes.", distance: calculateDistance(lat, lon, lat - 0.015, lon + 0.005), type: "Medium Priority" }
+          ];
+          nearbyAlerts.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+          const locationCards = document.getElementById('locationCards');
+          locationCards.innerHTML = '';
+          nearbyAlerts.forEach(alert => {
+              const card = document.createElement('div');
+              card.className = 'location-card';
+              card.innerHTML = `<h3>${alert.title}</h3><p>${alert.description}</p><p class="distance">${alert.distance} km away</p><p><strong>${alert.type}</strong></p>`;
+              locationCards.appendChild(card);
+          });
+          document.getElementById('locationResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      const locBtn = document.getElementById("locationBtn");
+      const locResult = document.getElementById("locResult");
+      locBtn.addEventListener("click", () => {
+          locResult.textContent = "Requesting location…";
+          if (!navigator.geolocation) {
+              locResult.textContent = "Geolocation not supported.";
+              return;
+          }
+          navigator.geolocation.getCurrentPosition(success, failure, { enableHighAccuracy: true, timeout: 15000 });
+
+          function success(pos) {
+              const lat = pos.coords.latitude, lon = pos.coords.longitude;
+              locResult.innerHTML = `Latitude: <strong>${lat}</strong>, Longitude: <strong>${lon}</strong>`;
+              
+              if (map) {
+                  map.setCenter({ lat, lng: lon });
+                  map.setZoom(14);
+                  if (marker) marker.setMap(null);
+                  marker = new google.maps.Marker({
+                      position: { lat, lng: lon },
+                      map,
+                      title: "You are here",
+                  });
+              } else {
+                  console.error("Map object is not initialized. Check your API key or network connection.");
+              }
+              showLocationContent(lat, lon);
+          }
+          function failure(err) {
+              locResult.textContent = "Unable to get location. Error: " + err.message;
+          }
+      });
+    </script>
+
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzmceOLTP-1I-UXhmJ75CeXyEVvWBimWE&callback=initMap"
+    ></script>
+    <script type="text/javascript">
+(function (d, t) {
+  var v = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+
+  v.onload = function () {
+    window.voiceflow.chat.load({
+      verify: { projectID: '68cd40925682320b1b0539ba' },
+      url: 'https://general-runtime.voiceflow.com',
+      versionID: 'production',
+      voice: {
+        url: 'https://runtime-api.voiceflow.com'
+      }
+    });
+  };
+
+  v.src = 'https://cdn.voiceflow.com/widget/bundle.mjs';
+  v.type = 'text/javascript';
+  s.parentNode.insertBefore(v, s);
+})(document, 'script');
+</script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',  // Site ka default language
+        includedLanguages: 'en,hi,fr,es,de,ja,zh-CN', // Languages add/remove
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      },
+      'google_translate_element'
+    );
+  }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+  // Saare videos select karke hover par play/pause set kar rahe hain
+  document.querySelectorAll('.reel-card video').forEach(function(video){
+    const parent = video.parentElement;
+    parent.addEventListener('mouseenter', () => {
+      video.play();
+    });
+    parent.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0; // cursor hatte hi video shuru se
+    });
+  });
+</script>
+<script>
+document.querySelectorAll('.reel-card video').forEach(v => {
+  v.addEventListener('click', () => {
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
+    const clone = v.cloneNode(true);
+    clone.controls = true;
+    modal.appendChild(clone);
+    document.body.appendChild(modal);
+    clone.play();
+
+    modal.addEventListener('click', () => modal.remove());
+  });
+});
+</script>
+  </body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.75, user-scalable=yes" />
+<title>Water's Beacon</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:linear-gradient(180deg,#f4f9ff 0%, #eef6ff 100%);
+  color:#112;
+  line-height:1.6;
+  font-size:18px;
+  transform: scale(0.75);
+  transform-origin: top left;
+  width: 133.33%;
+}
+.header{
+  text-align:center;
+  padding:2rem 1rem 1rem;
+  background:linear-gradient(90deg,#0077d9,#00b0ff);
+  color:#fff;
+  box-shadow:0 6px 18px rgba(2,60,120,0.12);
+}
+.logo-large{
+  font-size:2.6rem;
+  font-weight:800;
+  letter-spacing:0.8px;
+  background:linear-gradient(90deg,#fff,#d6f0ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+.tag{font-size:1.1rem;opacity:0.9;margin-top:0.3rem;}
+.search-wrap{
+  margin:1.5rem auto 0;
+  display:flex;
+  max-width:800px;
+  width:95%;
+  background:rgba(255,255,255,0.95);
+  padding:0.6rem;
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08);
+}
+#searchInput{
+  flex:1;
+  border:0;
+  padding:0.9rem 1.2rem;
+  font-size:1.1rem;
+  outline:none;
+  background:transparent;
+}
+.btn{
+  padding:0.9rem 1.4rem;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:1.05rem;
+  background:#0077d9;
+  color:#fff;
+  transition:background .3s;
+}
+.btn:hover{background:#005fa8;}
+.login-btn{
+  margin-top:1rem;
+  background:rgba(255,255,255,0.18);
+  color:#fff;
+  border:2px solid rgba(255,255,255,0.4);
+}
+.container{
+  max-width:95%;
+  margin:2rem auto;
+  padding:0 1rem 3rem;
+}
+.cards-section{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2rem;
+  margin-top:1.2rem;
+}
+@media (max-width:900px){.cards-section{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:600px){.cards-section{grid-template-columns:1fr;}}
+.card{
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  border-radius:18px;
+  padding:2rem;
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 10px 28px rgba(9,54,110,0.08);
+  transition:transform .25s ease, box-shadow .25s ease;
+  position:relative;
+  border:2px solid rgba(0,119,217,0.25);
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(9,54,110,0.12);}
+.card .heading{font-size:1.5rem;font-weight:700;color:#034a8c;margin-bottom:0.8rem;}
+.card .summary{font-size:1.1rem;opacity:0.9;margin-bottom:1rem;}
+.card .more{
+  align-self:flex-start;
+  padding:0.6rem 1rem;
+  border-radius:10px;
+  background:#0077d9;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  font-size:1.05rem;
+  border:none;
+}
+.card .badge{
+  position:absolute;
+  top:14px;right:14px;
+  background:linear-gradient(90deg,#00b0ff,#0066cc);
+  color:white;
+  padding:0.5rem 0.9rem;
+  border-radius:999px;
+  font-size:0.9rem;
+  font-weight:700;
+}
+.location-section{
+  margin-top:2.5rem;
+  background:#fff;
+  border-radius:16px;
+  padding:2rem;
+  box-shadow:0 10px 30px rgba(3,60,110,0.05);
+  text-align:center;
+  border:2px solid rgba(0,119,217,0.25);
+}
+.location-section p{font-size:1.3rem;margin-bottom:1.2rem;}
+#locationBtn{
+  background:linear-gradient(90deg,#0077d9,#00b0ff);
+  color:#fff;
+  border-radius:10px;
+  padding:0.9rem 1.4rem;
+  border:none;
+  font-weight:700;
+  font-size:1.1rem;
+  cursor:pointer;
+}
+.location-small{margin-top:1rem;color:#085;font-size:1.05rem;}
+footer{
+  margin-top:2.5rem;
+  text-align:center;
+  color:#234;
+  opacity:0.75;
+  font-size:1rem;
+}
+.footer-link:hover {color:#3498db!important;text-decoration:underline!important;}
+.social-link:hover {background-color:#3498db!important;}
+@media (max-width:768px){
+  .footer-columns-container{flex-direction:column!important;text-align:center!important;}
+  .footer-columns-container>div{align-items:center;display:flex;flex-direction:column;}
+}
+.Getoffical {
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(90deg, #00b0ff, #0077d9);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  margin-top: 1rem;
+  display: inline-block;
+}
+.Getoffical:hover {
+  background: linear-gradient(90deg, #0077d9, #005fa8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 119, 217, 0.25);
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo-large">Water's Beacon</div>
+  <div class="tag">Real-time water hazards & local news</div>
+
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="Search news or places...">
+    <button class="btn" id="searchBtn">Search</button>
+  </div>
+
+  <button class="btn login-btn" id="loginBtn" onclick="window.location.href='loginpage.html'">Login / Signup</button>
+</header>
+<div id="profilePanel"></div>
+
+<div class="container">
+  <section class="cards-section">
+    <!-- 3 News Cards Only -->
+    <article class="card">
+      <div class="badge">Top</div>
+      <div>
+        <div class="heading">
+          <a href="#" style="text-decoration:none;color:#034a8c">🦈 Multiple Shark Sightings Reported Near Bluewater Beach</a>
+        </div>
+        <div class="summary">Lifeguards have raised red flags across Bluewater Beach after multiple shark sightings were reported by local surfers early this morning. The beach has been evacuated as a precautionary measure.</div>
+        <div class="details">
+          Experts believe the sharks were drawn closer to shore by unusually high concentrations of baitfish in the area...
+          <button class="Getoffical" onclick="window.location.href='news1.html'">Get official Detail</button>
+        </div>
+      </div>
+      <button class="more" onclick="toggleCard(this)">Read more</button>
+    </article>
+
+    <article class="card">
+      <div class="badge">Top</div>
+      <div>
+        <div class="heading">
+          <a href="#" style="text-decoration:none;color:#034a8c">Unprecedented 'Crimson Glow' Algal Bloom Poses Health Risk Along Mumbai Coast</a>
+        </div>
+        <div class="summary">Authorities Issue Urgent Warning for Residents and Fishermen; Beach Access Restricted from Colaba to Juhu....</div>
+        <div class="details">
+          The bloom, identified as Pyrodinium bahamense, was first spotted as small patches near the shores of Versova three days ago...
+          <button class="Getoffical" onclick="window.location.href='news2.html'">Get official Detail</button>
+        </div>
+      </div>
+      <button class="more" onclick="toggleCard(this)">Read more</button>
+    </article>
+
+    <article class="card">
+      <div class="badge">Top</div>
+      <div>
+        <div class="heading">
+          <a href="#" style="text-decoration:none;color:#034a8c">Massive 'Ghost Net' Super-Cluster Drifts Towards Odisha Coast</a>
+        </div>
+        <div class="summary">Shipping and Wildlife on High Alert as Colossal Floating Mass Threatens Paradip Port and Gahirmatha Turtle Sanctuary...</div>
+        <div class="details">
+          A state of high alert has been declared along the Odisha coast as a colossal super-cluster of abandoned fishing nets drifts through the Bay of Bengal...
+          <button class="Getoffical" onclick="window.location.href='news3.html'">Get official Detail</button>
+        </div>
+      </div>
+      <button class="more" onclick="toggleCard(this)">Read more</button>
+    </article>
+  </section>
+
+  <section class="location-section">
+    <p>Give your location to know hazards or news in your area</p>
+    <button id="locationBtn" onclick="window.location.href='loginpage.html'">Give Access to Your Location</button>
+    <div id="locResult" class="location-small"></div>
+  </section>
+</div>
+
+<footer style="background-color:#2c3e50;color:#bdc3c7;padding:45px 0 20px;font-size:15px;line-height:24px;font-family:sans-serif;">
+  <div style="max-width:1170px;margin:0 auto;padding:0 15px;">
+    <div class="footer-columns-container" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;">
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:150px;">Water's Beacon</h3>
+        <p>Guiding you to clarity and sustainability. Your trusted source for water resource information and advocacy.</p>
+      </div>
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:110px;">Quick Links</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li><a href="/about" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">About Us</a></li>
+          <li><a href="/projects" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Our Projects</a></li>
+          <li><a href="/blog" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Blog</a></li>
+          <li><a href="/contact" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Contact Us</a></li>
+          <li><a href="/faq" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">FAQ</a></li>
+        </ul>
+      </div>
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:110px;">Information</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li><a href="/privacy-policy" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Privacy Policy</a></li>
+          <li><a href="/terms-of-service" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Terms of Service</a></li>
+          <li><a href="/cookie-policy" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Cookie Policy</a></li>
+          <li><a href="/sitemap" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Sitemap</a></li>
+        </ul>
+      </div>
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:160px;">Connect With Us</h3>
+        <div>
+          <a href="#" title="Twitter" class="social-link" style="display:inline-flex;justify-content:center;align-items:center;width:40px;height:40px;background-color:rgba(255,255,255,0.1);border-radius:50%;color:#ffffff;margin-right:10px;font-size:18px;text-decoration:none;"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Facebook" class="social-link" style="display:inline-flex;justify-content:center;align-items:center;width:40px;height:40px;background-color:rgba(255,255,255,0.1);border-radius:50%;color:#ffffff;margin-right:10px;font-size:18px;text-decoration:none;"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="Instagram" class="social-link" style="display:inline-flex;justify-content:center;align-items:center;width:40px;height:40px;background-color:rgba(255,255,255,0.1);border-radius:50%;color:#ffffff;margin-right:10px;font-size:18px;text-decoration:none;"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="LinkedIn" class="social-link" style="display:inline-flex;justify-content:center;align-items:center;width:40px;height:40px;background-color:rgba(255,255,255,0.1);border-radius:50%;color:#ffffff;margin-right:10px;font-size:18px;text-decoration:none;"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;padding-top:20px;border-top:1px solid #3d4a5c;margin-top:20px;">
+      <p>&copy; <span id="copyright-year">2025</span> Water's Beacon. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) { alert('Please type something to search.'); return; }
+  alert('Search feature coming soon. You searched: ' + q);
+});
+
+const locBtn = document.getElementById('locationBtn');
+const locResult = document.getElementById('locResult');
+
+locBtn.addEventListener('click', () => {
+  locResult.textContent = 'Requesting location…';
+  if (!navigator.geolocation) {
+    locResult.textContent = 'Geolocation not supported.';
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(success, failure, { enableHighAccuracy: true, timeout: 15000 });
+  function success(pos) {
+    const lat = pos.coords.latitude.toFixed(6);
+    const lon = pos.coords.longitude.toFixed(6);
+    locResult.innerHTML = `Latitude: <strong>${lat}</strong>, Longitude: <strong>${lon}</strong>`;
+  }
+  function failure() { locResult.textContent = 'Unable to get location.'; }
+});
+
+function toggleCard(btn){
+  const details = btn.parentElement.querySelector('.details');
+  const isVisible = details.style.display === 'block';
+  details.style.display = isVisible ? 'none' : 'block';
+  btn.textContent = isVisible ? 'Read more' : 'Read less';
+}
+</script>
+
+</body>
+</html>

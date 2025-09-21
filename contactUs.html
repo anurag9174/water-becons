@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Water Beacon</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+    /* --- General Styles & Variables --- */
+:root {
+    --primary-color: #005A9C; /* A strong, trustworthy blue */
+    --secondary-color: #00AEEF; /* A brighter, more modern blue for accents */
+    --dark-text: #333333;
+    --light-text: #666666;
+    --background-color: #f4f8fa;
+    --card-background: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--dark-text);
+    margin: 0;
+    padding: 2rem;
+    line-height: 1.6;
+}
+
+/* --- Container and Layout --- */
+.contact-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.contact-header {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.contact-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.contact-header p {
+    max-width: 700px;
+    margin: 0.5rem auto 0;
+    opacity: 0.9;
+}
+
+.contact-main {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Form takes slightly more space */
+    gap: 2rem;
+    padding: 2.5rem;
+}
+
+/* --- Form Section (Left Column) --- */
+.contact-form-section h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.2);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #004a80; /* Darker shade of primary blue */
+    transform: translateY(-2px);
+}
+
+/* --- Info Section (Right Column) --- */
+.contact-info-section {
+    padding-left: 2rem;
+    border-left: 1px solid var(--border-color);
+}
+
+.info-block {
+    margin-bottom: 2.5rem;
+}
+
+.info-block h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.info-block p,
+.info-block address {
+    margin: 0.5rem 0;
+    color: var(--light-text);
+    font-style: normal;
+}
+
+.info-block a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.info-block a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    font-size: 1.8rem;
+    color: var(--light-text);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.map-placeholder {
+    width: 100%;
+    height: 180px;
+    background-color: #eef3f6;
+    border: 1px dashed var(--border-color);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--light-text);
+    margin-top: 1rem;
+}
+
+/* --- Footer FAQ Section --- */
+.contact-footer {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.contact-footer h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.faq-btn {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 1rem;
+}
+
+.faq-btn:hover {
+    background-color: #0095c7; /* Darker shade of secondary blue */
+    transform: translateY(-2px);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .contact-main {
+        grid-template-columns: 1fr;
+    }
+    .contact-info-section {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        padding-top: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        padding: 1rem;
+    }
+    .contact-header h1 {
+        font-size: 2rem;
+    }
+    .contact-main, .contact-header, .contact-footer {
+        padding: 1.5rem;
+    }
+}
+</style>
+</head>
+<body>
+
+    <div class="contact-container">
+        <header class="contact-header">
+            <h1>Get in Touch with Water Beacon</h1>
+            <p>Your voice is a vital part of our mission to create safer oceans. Whether you have a question, a suggestion, or need support, we are here to listen.</p>
+        </header>
+
+        <main class="contact-main">
+            <section class="contact-form-section">
+                <h2>Send Us a Message</h2>
+                <p>For general inquiries, feedback, or technical support, please fill out the form below. Our team typically responds within 24-48 business hours.</p>
+                <form id="waterBeaconForm" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryType">Subject / Inquiry Type</label>
+                        <select id="inquiryType" name="inquiryType" required>
+                            <option value="" disabled selected>Select an option...</option>
+                            <option value="general">General Question</option>
+                            <option value="tech_issue">Report a Website/App Issue</option>
+                            <option value="feedback">Feedback & Suggestion</option>
+                            <option value="data_request">Data or Research Inquiry</option>
+                            <option value="media">Media & Press Inquiry</option>
+                            <option value="partnership">Partnership Opportunity</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" placeholder="Please describe your inquiry in detail..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                         <small>We value your privacy. Your information will only be used to respond to your inquiry.</small>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </section>
+
+            <aside class="contact-info-section">
+                <h2>Other Ways to Connect</h2>
+                
+                <div class="info-block">
+                    <h3><i class="fa-solid fa-envelope"></i> By Email</h3>
+                    <p><strong>General Inquiries:</strong> <a href="mailto:info@waterbeacon.org">info@waterbeacon.org</a></p>
+                    <p><strong>Technical Support:</strong> <a href="mailto:support@waterbeacon.org">support@waterbeacon.org</a></p>
+                    <p><strong>Media & Press:</strong> <a href="mailto:media@waterbeacon.org">media@waterbeacon.org</a></p>
+                    <p><strong>Partnerships:</strong> <a href="mailto:partners@waterbeacon.org">partners@waterbeacon.org</a></p>
+                </div>
+
+                <div class="info-block">
+                    <h3><i class="fa-solid fa-hashtag"></i> Follow Our Mission</h3>
+                    <div class="social-links">
+                        <a href="#" title="Twitter (X)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                     <h3><i class="fa-solid fa-building"></i> Our Headquarters</h3>
+                     <address>
+                        Water Beacon Project<br>
+                        c/o Maritime Innovation & Safety Center<br>
+                        123 Oceanographic Drive, Suite 45<br>
+                        Coastal City, State 67890<br>
+                        Country
+                     </address>
+                     <div class="map-placeholder">
+                        <p>Google Map would be embedded here.</p>
+                     </div>
+                </div>
+            </aside>
+        </main>
+
+        <footer class="contact-footer">
+            <h3>Frequently Asked Questions (FAQ)</h3>
+            <p>Have a question? We might have already answered it! Save time by checking our comprehensive FAQ page before reaching out.</p>
+            <a href="/faq" class="faq-btn">Visit FAQ Page</a>
+        </footer>
+
+    </div>
+
+</body>
+</html>
