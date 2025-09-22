@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.75, user-scalable=yes" />
+<title>Water's Beacon - Admin Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:linear-gradient(180deg,#f4f9ff 0%, #eef6ff 100%);
+  color:#112;
+  line-height:1.6;
+  font-size:18px;
+  transform: scale(0.75);
+  transform-origin: top left;
+  width: 133.33%;
+}
+.header{
+  text-align:center;
+  padding:2rem 1rem 1rem;
+  background:linear-gradient(90deg,#0077d9,#00b0ff);
+  color:#fff;
+  box-shadow:0 6px 18px rgba(2,60,120,0.12);
+}
+.logo-large{
+  font-size:2.6rem;
+  font-weight:800;
+  letter-spacing:0.8px;
+  background:linear-gradient(90deg,#fff,#d6f0ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+.tag{font-size:1.9rem;opacity:0.9;margin-top:0.9rem;}
+.container{
+  max-width:95%;
+  margin:2rem auto;
+  padding:0 1rem 3rem;
+}
+.admin-section{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:2rem;
+  margin-top:1.2rem;
+}
+@media (max-width:900px){.admin-section{grid-template-columns:1fr;}}
+.admin-card{
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  border-radius:18px;
+  padding:2rem;
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 10px 28px rgba(9,54,110,0.08);
+  transition:transform .25s ease, box-shadow .25s ease;
+  position:relative;
+  border:2px solid rgba(0,119,217,0.25);
+}
+.admin-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(9,54,110,0.12);}
+.admin-card .heading{font-size:1.5rem;font-weight:700;color:#034a8c;margin-bottom:0.8rem;}
+.admin-card .content{font-size:1.1rem;opacity:0.9;margin-bottom:1rem;flex-grow:1;}
+.admin-card .stats{
+  display:flex;
+  justify-content:space-between;
+  margin-top:1rem;
+}
+.stat-item{
+  text-align:center;
+  padding:0.8rem;
+  background:rgba(0,119,217,0.1);
+  border-radius:10px;
+  flex:1;
+  margin:0 0.5rem;
+}
+.stat-number{
+  font-size:1.8rem;
+  font-weight:700;
+  color:#0077d9;
+}
+.stat-label{
+  font-size:0.9rem;
+  color:#034a8c;
+}
+.btn{
+  padding:0.9rem 1.4rem;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:1.05rem;
+  background:#0077d9;
+  color:#fff;
+  transition:background .3s;
+  margin-top:1rem;
+  align-self:flex-start;
+}
+.btn:hover{background:#005fa8;}
+.post-list, .user-list{
+  list-style:none;
+  margin-top:1rem;
+}
+.post-list li, .user-list li{
+  padding:0.8rem;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.post-list li:last-child, .user-list li:last-child{
+  border-bottom:none;
+}
+.status-badge{
+  padding:0.3rem 0.8rem;
+  border-radius:999px;
+  font-size:0.8rem;
+  font-weight:700;
+}
+.status-reading{background:#e3f2fd;color:#1976d2;}
+.status-memory{background:#e8f5e9;color:#388e3c;}
+.status-progress{background:#fff3e0;color:#f57c00;}
+.status-solved{background:#f5f5f5;color:#616161;}
+footer{
+  margin-top:2.5rem;
+  text-align:center;
+  color:#234;
+  opacity:0.75;
+  font-size:1rem;
+}
+.footer-link:hover {color:#3498db!important;text-decoration:underline!important;}
+.social-link:hover {background-color:#3498db!important;}
+@media (max-width:768px){
+  .footer-columns-container{flex-direction:column!important;text-align:center!important;}
+  .footer-columns-container>div{align-items:center;display:flex;flex-direction:column;}
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo-large">Water's Beacon</div>
+  <div class="tag">Admin Dashboard</div>
+</header>
+<!-- Profile Card -->
+<article class="admin-card" style="display:flex;align-items:center;gap:1.5rem;">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSqoPtjtvRmcQutmkKKsHl33anpctQfrcdGg&s" alt="Profile Photo" style="width:80px;height:80px;border-radius:50%;border:2px solid #0077d9;">
+  <div style="flex-grow:1;">
+    <div class="heading" style="margin-bottom:0.5rem;">Admin Profile</div>
+    <p style="margin-bottom:0.3rem;"><strong>Name:</strong> Abhinav Singh </p>
+    <p style="margin-bottom:0.3rem;"><strong>Email:</strong> abhinav123@gmail.com</p>
+    <p style="margin-bottom:0.3rem;"><strong>Phone:</strong> +91 9XXXXXXXX0</p>
+  </div>
+  <button class="btn" style="align-self:flex-start;">Edit Profile</button>
+</article>
+
+<div class="container">
+  <section class="admin-section">
+    
+    <!-- Post Name & Dept Responsibility Card -->
+    <article class="admin-card">
+      <div class="heading">Post Name & Department Responsibility</div>
+      <div class="content">
+        <p>Manage official posts and department responsibilities for water hazard reporting.</p>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Active Posts</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Departments</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn">Manage Posts</button>
+    </article>
+
+    <!-- Users - Memory Card -->
+    <article class="admin-card">
+        <div class="heading">⚠️ Issue Warnings</div>
+        <div class="content">
+            <p>Review and manage user warnings and system alerts.</p>
+            <ul class="user-list">
+                <li>Pending Warnings <span class="status-badge status-memory">12</span></li>
+                <li>System Alerts <span class="status-badge status-progress">5</span></li>
+            </ul>
+        </div>
+        <button class="btn">Warning Management</button>
+    </article>
+    <!-- Reading - Deposits Card -->
+    <article class="admin-card">
+      <div class="heading">Reading - Deposits</div>
+      <div class="content">
+        <p>Monitor water quality reading deposits and analysis reports.</p>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">47</div>
+            <div class="stat-label">New Readings</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Needs Review</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn">Analyze Data</button>
+    </article>
+
+   
+     <!-- Complaints & FAQs Card -->
+    <article class="admin-card">
+      <div class="heading">Complaints & FAQs</div>
+      <div class="content">
+        <p>Handle user complaints and frequently asked questions about water hazards.</p>
+        <ul class="post-list">
+          <li>New Complaints <span class="status-badge status-reading">8 Unread</span></li>
+          <li>FAQ Updates <span class="status-badge status-memory">3 Pending</span></li>
+        </ul>
+      </div>
+      <button class="btn">View Details</button>
+    </article>
+
+
+    <!-- In Progress - Deposits Card -->
+    <article class="admin-card">
+      <div class="heading">In Progress - Deposits</div>
+      <div class="content">
+        <p>Track deposits that are currently being processed and analyzed.</p>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">23</div>
+            <div class="stat-label">In Progress</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Delayed</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn">View Progress</button>
+    </article>
+
+    <!-- Solved Reports & Assigned Official Card -->
+    <article class="admin-card">
+      <div class="heading">Solved Reports & Assigned Official</div>
+      <div class="content">
+        <p>Review solved reports and officials assigned to various cases.</p>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">154</div>
+            <div class="stat-label">Solved Reports</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">9</div>
+            <div class="stat-label">Officials</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn">Review Reports</button>
+    </article>
+  </section>
+</div>
+
+<footer style="background-color:#2c3e50;color:#bdc3c7;padding:45px 0 20px;font-size:15px;line-height:24px;font-family:sans-serif;">
+  <div style="max-width:1170px;margin:0 auto;padding:0 15px;">
+    <div class="footer-columns-container" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;">
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:150px;">Water's Beacon</h3>
+        <p>Guiding you to clarity and sustainability. Your trusted source for water resource information and advocacy.</p>
+      </div>
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:110px;">Admin Links</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li><a href="/dashboard" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Dashboard</a></li>
+          <li><a href="/reports" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Reports</a></li>
+          <li><a href="/users" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">User Management</a></li>
+          <li><a href="/settings" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Settings</a></li>
+        </ul>
+      </div>
+      <div style="flex:1;min-width:200px;margin-bottom:30px;">
+        <h3 style="color:#ffffff;font-size:18px;margin-bottom:20px;font-weight:600;border-bottom:2px solid #3498db;padding-bottom:5px;width:110px;">Information</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li><a href="/privacy-policy" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Privacy Policy</a></li>
+          <li><a href="/terms-of-service" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Terms of Service</a></li>
+          <li><a href="/admin-guide" class="footer-link" style="color:#bdc3c7;text-decoration:none;display:block;margin-bottom:10px;">Admin Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align:center;padding-top:20px;border-top:1px solid #3d4a5c;margin-top:20px;">
+      <p>&copy; <span id="copyright-year">2025</span> Water's Beacon. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
